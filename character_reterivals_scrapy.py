@@ -29,10 +29,11 @@ if __name__ == '__main__':
     basic_url = "http://xh.5156edu.com/html3/"
 
     with open("Character_bishu.xml", "a", newline="", encoding='utf-8-sig') as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        f.write('   <RADICALS>\n')
+        # f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        # f.write('   <RADICALS>\n')
 
-        for index in range(1604, 1610):
+        for index in range(15041, 22526):
+            print("Process: ", index)
             url = basic_url + str(index) + ".html"
             page_source = character_dict.get_page(url)
             html = character_dict.parse_page(page_source)
@@ -42,7 +43,7 @@ if __name__ == '__main__':
 
             if len(table1s) < 2:
                 print("table1 not two")
-                exit()
+                break
             else:
                 table1 = table1s[1]
 
@@ -59,7 +60,6 @@ if __name__ == '__main__':
                         p = re.compile('笔顺编号：[0-9]+')
                         m = p.findall(contents)
                         if m:
-                            print(repr(m[0]))
                             bishu_str = m[0].replace("笔顺编号：", "")
 
                         break
@@ -71,10 +71,7 @@ if __name__ == '__main__':
                 f.write(f_str)
                 f.flush()
 
-
-            time.sleep(5)
-
-
+            time.sleep(3)
 
         f.write('   </RADICALS>\n')
 
